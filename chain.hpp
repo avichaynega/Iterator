@@ -1,86 +1,46 @@
+#include <iostream>
+#include <typeinfo>
+#include <cassert>
 
 namespace itertools
 {
-
-template <typename A,typename B,typename T> 
+template <typename T,typename Y>
 class chain
 {
- 
-private:
-  static A _a;
-  static B _b;
-  static T _c;
-  
-
-public:
-  chain() {}
-  chain(A a, B b)
-  {
-     _a = a;
-     _b = b;
-     _c= nullptr;
-  }
-
-  class iterator
-  {
-
+  T *start;
+  Y *last;
   public:
-    
-  T *value;
 
-    iterator()
+  chain(T  s, Y  l): start(&s), last(&l){}
+
+  // uint size;
+public:
+  class const_iterator
+  {
+  private:
+    T *current, *first, *last ; 
+    public: 
+    const_iterator(T *c, T *f, T *l) : current(c), first(f), last(l) {}
+    const T &operator*() const
     {
-      value=_a.begin();
+      assert(current >= first && current < last);
+      return *current;
     }
-
-    
-    iterator operator*() 
+    const_iterator operator++() //prefix
     {
-      return *value ;
+      current++;
+      return *this;
     }
-
-    iterator &operator++() 
+    bool operator!=(const_iterator &other) const
     {
-      if (value==_a.end()){
-        value == *_b.begin();
-        return;
-      }
-      if (typeid(value)==typeid("ss")){
-        value++;
-      }
-      if (typeid(value)==typeid(6)){
-          *value++;
-      }
-      
-      return *value;
+      assert(first == other.first);
+      assert(last == other.last);
+      return (current != other.current);
     }
-
-    iterator operator++(int) 
-    {
-      auto ret = *this;
-      ++*this;
-      return ret;
-    }
-
-    bool operator!=( iterator &other) 
-    {
-
-      return *this!= *other ;
-    }
-
-    bool operator==( iterator &other) 
-    {
-      return *this == other;
-    }
+  
   };
-    iterator begin()
-  {
-     return iterator{};
-   
-  }
-    iterator end()
-  {
-      return _b.end();
-  }
-};
+int* begin(){return nullptr;};
+int * end(){return nullptr;};
 }; // namespace itertools
+}
+; // namespace itertools

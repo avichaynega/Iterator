@@ -1,83 +1,46 @@
 #include <iostream>
 #include <typeinfo>
+#include <cassert>
 
 namespace itertools
 {
 template <typename T>
 class range
 {
-
-private:
-  T start_;
-  T stop_;
-
-public:
-  range() {}
-  range(T start, T stop)
-  {
-
-    start_ = start;
-    stop_ = stop;
-  }
-
-  class iterator
-  {
-
+  T *start;
+  T *last;
   public:
-    T *a_pointer;
-    T value;
 
-    iterator(T start)
+  range(T  s, T  l): start(&s), last(&l){}
+
+  // uint size;
+public:
+  class const_iterator
+  {
+  private:
+    T *current, *first, *last ; 
+    public: 
+    const_iterator(T *c, T *f, T *l) : current(c), first(f), last(l) {}
+    const T &operator*() const
     {
-
-      value = start;
-      // cout<<value<<endl;
-      a_pointer = &value;
+      assert(current >= first && current < last);
+      return *current;
     }
-
-    T operator*() const
+    const_iterator operator++() //prefix
     {
-
-      return value;
+      current++;
+      return *this;
     }
-    // ++i;
-
-    iterator operator++()
+    bool operator!=(const_iterator &other) const
     {
-      value++;
-      return *a_pointer;
+      assert(first == other.first);
+      assert(last == other.last);
+      return (current != other.current);
     }
-
-    // i++;
-    // Usually iterators are passed by value and not by const& as they are small.
-    iterator operator++(int)
-    {
-      iterator tmp = a_pointer;
-      *a_pointer++;
-      return tmp;
-    }
-
-    bool operator==(const iterator &other) const
-    {
-      return value == other.value;
-    }
-
-    bool operator!=(const iterator &other) const
-    {
-      return value != other.value;
-    }
+  
   };
-  iterator begin()
-  {
-
-    return iterator{start_};
-  }
-
-  iterator end()
-  {
-
-    //cout <<  *iterator{stop_} << endl;
-    return iterator{stop_};
-  }
-};
+int* begin(){return nullptr;};
+int * end(){return nullptr;};
 }; // namespace itertools
+}
+; // namespace itertools
