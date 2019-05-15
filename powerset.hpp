@@ -20,7 +20,7 @@ public:
   private:
     T *current, *first, *last ; 
     public: 
-    const_iterator(T *c, T *f, T *l) : current(c), first(f), last(l) {}
+const_iterator(T *c) :  first(c) {}
     const T &operator*() const
     {
       assert(current >= first && current < last);
@@ -39,8 +39,8 @@ public:
     }
   
   };
- int* begin() const{return nullptr;};
- int* end()const{return nullptr;};
+int* begin() const{return nullptr;};
+int * end() const{return nullptr;};
 }; // namespace itertools
 }
 ; // namespace itertools

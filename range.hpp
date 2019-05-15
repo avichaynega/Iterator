@@ -19,7 +19,8 @@ public:
   {
   private:
     T *current, *first, *last ; 
-    public: 
+    public:
+    const_iterator( T f,T c) :  first(&f), last(&c) {}
     const_iterator(T *c, T *f, T *l) : current(c), first(f), last(l) {}
     const T &operator*() const
     {
@@ -39,8 +40,8 @@ public:
     }
   
   };
-int* begin(){return nullptr;};
-int * end(){return nullptr;};
+int* begin() const{return nullptr;};
+int * end() const{return nullptr;};
 }; // namespace itertools
 }
 ; // namespace itertools
