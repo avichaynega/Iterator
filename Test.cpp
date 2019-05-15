@@ -1,22 +1,14 @@
-/**
- * A demo program for itertools.
- * 
- * @author Erel Segal-Halevi
- * @since  2019-05
- */
-
-
 #include <iostream>
-#include <sstream>
-using namespace std;
-
+#include <string>
+#include "badkan.hpp"
 #include "range.hpp"
 #include "chain.hpp"
 #include "zip.hpp"
 #include "product.hpp"
 #include "powerset.hpp"
+using namespace std;
 using namespace itertools;
-
+//convert container to string
 template<typename Iterable>
 string iterable_to_string(const Iterable& iterable) {
 	ostringstream ostr;
@@ -24,50 +16,57 @@ string iterable_to_string(const Iterable& iterable) {
 		ostr << i << ",";
 	return ostr.str();
 }
+int main()
+{
+	badkan::TestCase testcase;
+	int grade = 0; //Inits the grade.
+	int signal = setjmp(badkan::longjmp_buffer);
+	if(signal == 0)
+	{
+		int check=22;
 
-int main() {
-	cout << endl << endl << "Range of ints: " << endl;
-	for (int i: range(5,9))
-		cout << i;    // 5678
-	cout << endl;
-	cout << endl << endl << "Range of doubles: " << endl;
-	for (double i: range(5.1,9.1))
-		cout << i << " ";    // 5.1 6.1 7.1 8.1
-	cout << endl << endl << "Range of chars: " << endl;
-	for (char i: range('a','e'))
-		cout << i << " ";    // a b c d 
+		testcase.setname("------Range tests-------");
+		for (int i: range(22,29)){
+		testcase.CHECK_EQUAL(i,check++);
+		}
 
-	// Note: this example works even without your code.
-	// It shows that a string is also an "iterable" - it can be iterated with a for-each loop.
-	cout << endl << endl << "Standard string: " << endl;
-	for (char i: string("hello"))
-		cout << i << " ";    // prints h e l l o 
+		check=2;
+		testcase.setname("------Chain tests-------");
+		for (int i: chain(range(2,8),range(2,5))){
+		testcase.CHECK_EQUAL(check++,i);
+		if(check==7)check=2;
+		}
+		
+		string ch = iterable_to_string( zip(range(5,8), string("abc"))); //5,a 6,b 7,c
+		string t="";
+		testcase.setname("------zip tests-------");
+		for (int i: zip(range(5,8), string("abc"))){
+			t=t+to_string(i);
+		}
+		testcase.CHECK_EQUAL(ch,t);
 
-	cout << endl << endl << "Chain of two ranges: " << endl;
-	for (int i: chain(range(1,4), range(5,8)))
-		cout << i;    // prints 123567
-	cout << endl << endl << "Chain of a range and a string: " << endl;
-	for (char i: chain(range('a','e'), string("hello")))
-		cout << i;    // abcdhello
+		ch = iterable_to_string( product(range(15,17), string("tc"))); 
+		t="";
+		testcase.setname("------product tests-------");
+		for (int i: product(range(15,17), string("tc"))){
+			t=t+to_string(i);
+		}
+		testcase.CHECK_EQUAL(ch,t);
 
-	cout << endl << endl << "Zip a range of ints and a string (must be of the same size)" << endl;
-	for (auto pair: zip(range(1,6), string("hello")))
-		cout << pair << "  ";    // 1,h  2,e  3,l  4,l  5,o
-	cout << endl << endl << "Zip of zips" << endl;
-	for (auto pair: zip(zip(range(1,4), string("xyz")),zip(string("abc"),range(6,9))))
-		cout << pair << "  ";    // 1,x,a,6  2,y,b,7  3,z,c,8
-
-	cout << endl << endl << "Cartesian product of a range of ints and a string (can be of different sizes)" << endl;
-	for (auto pair: product(range(1,4), string("hello")))
-		cout << pair << "  ";    // 1,h  1,e  1,l  1,l  1,o  2,h  2,e  2,l  2,l  2,o  3,h  3,e  3,l  3,l  3,o
-
-	cout << endl << endl << "Power-set of range of ints " << endl;
-	for (auto subset: powerset(range(1,4)))
-		cout << subset;  // {}{1}{2}{1,2}{3}{1,3}{2,3}{1,2,3}
-	cout << endl << endl << "Power-set of chain " << endl;
-	for (auto subset: powerset(chain(range('a','c'),range('x','z'))))
-		cout << subset;  // {}{a}{b}{a,b}{x}{a,x}{b,x}{a,b,x}{y}{a,y}{b,y}{a,b,y}{x,y}{a,x,y}{b,x,y}{a,b,x,y}
-	cout << endl;
-	cout << iterable_to_string(powerset(chain(range('a','c'),range('x','z')))) << endl;
+		ch = iterable_to_string( powerset(range(-9,-6))); //{-9,-8,-7}
+		t="";
+		testcase.setname("------powerset tests-------");
+		for (int i: powerset(range(-9,-6))){
+			t=t+to_string(i);
+		}
+		testcase.CHECK_EQUAL(ch,t);
+    grade = testcase.grade();
+	}
+	else
+	{
+		testcase.print_signal(signal);
+		grade = 0;
+	}
+	cout << "Your grade is: "  << grade << endl;
 	return 0;
 }
