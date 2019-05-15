@@ -25,6 +25,7 @@ represent all sub groups of container-like
 ## Run example in bash :
   for demo run
      make demo && ./demo
+     
   for test run
-     make test&& ./test
+     make test && ./test
 
