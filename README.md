@@ -21,3 +21,10 @@ for instance: product(range(1,3),string("ah")) means 1,a 1,h 2,a 2,h
 
 ## powerset
 represent all sub groups of container-like
+
+## Run example in bash :
+  for demo run
+     make demo && ./demo
+  for test run
+     make test&& ./test
+
