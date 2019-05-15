@@ -1,3 +1,4 @@
+### authors: Avichay (Avtai) Nega, Omer Hadida, Oren Zauda
 # Iterator
 this repository contain data structors with comlexity of o(1).
 
