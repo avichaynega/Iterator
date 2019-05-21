@@ -108,9 +108,9 @@ public:
   };
   iterator begin() const { return iterator{first, second};}
   iterator end() const { 
-   
+   int size = first.length()+second.length()+1 ; 
     iterator it{first, second}; 
-    for (size_t i = 0; i < (first.length()+second.length()+1); i++)
+    for (size_t i = 0; i < size; i++)
     {
       ++it;
     }
