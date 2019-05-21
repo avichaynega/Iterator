@@ -26,6 +26,31 @@ string iterable_to_string(const Iterable& iterable) {
 }
 
 int main() {
+
+// 	range a(1,4);
+// 	powerset c(a);
+	
+
+// 	powerset<range<int>>::iterator it = c.begin();
+// 	cout << *it <<endl;
+
+// ++it;
+// cout << *it <<endl;
+
+// ++it;
+// cout << *it <<endl;
+
+// ++it;
+// cout << *it <<endl;
+
+// ++it;
+// cout << *it <<endl;
+
+// ++it;
+// cout << *it <<endl;
+//{}{1}{2}{1,2}{3}{1,3}{2,3}{1,2,3}
+
+
 	cout << endl << endl << "Range of ints: " << endl;
 	for (int i: range(5,9))
 		cout << i;    // 5678
