@@ -101,8 +101,8 @@ public:
      
       
       
-        V1 type = *second_data ;
-        V1 type2 =  *other.second_data;
+        typename V1 type = *second_data ;
+        typename V1 type2 =  *other.second_data;
        return  type != type2;
     }
   };
