@@ -98,11 +98,11 @@ public:
 
     bool operator!=(const iterator other) const
     {
-      V1 type;
-      V1 type2;
+     
       
-        type = *second_data ;
-        type2 =  *other.second_data;
+      
+        V1 type = *second_data ;
+        V1 type2 =  *other.second_data;
        return  type != type2;
     }
   };
