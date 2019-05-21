@@ -8,19 +8,19 @@ class chain
 private:
   T1 first;
   T2 second;
-  
+  using V1 = decltype(*first.begin());
   
 
 public:
   chain(const T1 first, const T2 second) : first(first), second(second)
   {
-//     using V1 = const decltype(*first.begin()) &;
-//     using V2 = const decltype(*second.begin()) &;
-//     static_assert(
-//         std::is_same<V1, V2>,
-//         "The two arguments of 'chain' must have the same value type!");
+    using V1 = const decltype(*first.begin()) &;
+    using V2 = const decltype(*second.begin()) &;
+    static_assert(
+        std::is_same_v<V1, V2>,
+        "The two arguments of 'chain' must have the same value type!");
   }
-  int length() const{
+  int length(){
     return first.length()+second.length();
   }
 
@@ -31,7 +31,6 @@ public:
    typename T1::iterator first_data ;
    T2 second_begin;
    typename T2::iterator second_data ;
-    using V1 = decltype(*first_data);
    
    bool is_sec= false ;
 
@@ -99,19 +98,19 @@ public:
 
     bool operator!=(const iterator other) const
     {
-     
+      V1 type;
+      V1 type2;
       
-      
-       char type =(char) *second_data ;
-        char type2 = (char) *other.second_data;
+        type = *second_data ;
+        type2 =  *other.second_data;
        return  type != type2;
     }
   };
   iterator begin() const { return iterator{first, second};}
   iterator end() const { 
-   int size = first.length()+second.length()+1 ; 
+   
     iterator it{first, second}; 
-    for (size_t i = 0; i < size; i++)
+    for (size_t i = 0; i < (first.length()+second.length()+1); i++)
     {
       ++it;
     }
