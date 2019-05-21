@@ -14,11 +14,11 @@ private:
 public:
   chain(const T1 first, const T2 second) : first(first), second(second)
   {
-    using V1 = const decltype(*first.begin()) &;
-    using V2 = const decltype(*second.begin()) &;
-    static_assert(
-        std::is_same<V1, V2>,
-        "The two arguments of 'chain' must have the same value type!");
+//     using V1 = const decltype(*first.begin()) &;
+//     using V2 = const decltype(*second.begin()) &;
+//     static_assert(
+//         std::is_same<V1, V2>,
+//         "The two arguments of 'chain' must have the same value type!");
   }
   int length(){
     return first.length()+second.length();
