@@ -31,7 +31,7 @@ public:
    typename T1::iterator first_data ;
    T2 second_begin;
    typename T2::iterator second_data ;
-    using V1 = decltype(*first_begin);
+    using V1 = decltype(*first_data);
    
    bool is_sec= false ;
 
