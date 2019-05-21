@@ -20,7 +20,7 @@ public:
 //         std::is_same<V1, V2>,
 //         "The two arguments of 'chain' must have the same value type!");
   }
-  int length(){
+  int length() const{
     return first.length()+second.length();
   }
 
