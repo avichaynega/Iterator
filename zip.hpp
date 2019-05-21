@@ -15,6 +15,9 @@ private:
 public:
   zip(const T1 first, const T2 second) : first(first), second(second)
   {
+    static_assert(
+        std::is_same<V1, V2>,
+        "The two arguments of 'chain' must have the same value type!");
   }
  int length() const{
    return first.length();
