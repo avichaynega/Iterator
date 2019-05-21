@@ -8,7 +8,7 @@ class chain
 private:
   T1 first;
   T2 second;
-  using V1 = decltype(*first.begin());
+  
   
 
 public:
@@ -31,6 +31,7 @@ public:
    typename T1::iterator first_data ;
    T2 second_begin;
    typename T2::iterator second_data ;
+    using V1 = decltype(*first_begin);
    
    bool is_sec= false ;
 
