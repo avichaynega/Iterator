@@ -16,7 +16,7 @@ public:
     using V1 = const decltype(*first.begin()) &;
     using V2 = const decltype(*second.begin()) &;
   }
-  int length()
+  int length const()
   {
     return first.length() + second.length();
   }
