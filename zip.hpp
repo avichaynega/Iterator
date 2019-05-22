@@ -15,9 +15,6 @@ private:
 public:
   zip(const T1 first, const T2 second) : first(first), second(second)
   {
-//     static_assert(
-//         std::is_same<V1, V2>,
-//         "The two arguments of 'chain' must have the same value type!");
   }
  int length() const{
    return first.length();
@@ -29,17 +26,28 @@ public:
     typename T1::iterator first_data;
     T2 second_begin;
     typename T2::iterator second_data;
-
+  int size =0;
+  int counter =0;
     bool on_off = false;
 
   public:
     iterator(T1 first_be, T2 second_be) : first_begin(first_be), second_begin(second_be),
                                           first_data(first_begin.begin()), second_data(second_begin.begin())
     {
+      length();
     }
-
+    void length(){
+      for (;first_data != first_begin.end();++first_data){
+        size++;
+      }
+      first_data = first_begin.begin();
+    }
+    
     string operator*()
     {
+      if(counter == 0){
+        counter++;
+      }
       stringstream ss;
       string res = "";
       ss << *first_data;
@@ -52,6 +60,7 @@ public:
     //++i;
     iterator operator++()
     {
+      counter++;
       ++first_data;
       ++second_data;
       return *this;
@@ -61,7 +70,7 @@ public:
         // Usually iterators are passed by value and not by const& as they are small.
         iterator operator++(int)
         {
-          
+           counter++;
           iterator tmp = *this;
           ++*this;
           return tmp;
@@ -76,21 +85,11 @@ public:
 
         bool operator!=( iterator other) 
         {
-
-           return  !(*this==other);
+           return  counter<=size;
         }
   };
   iterator begin() const { return iterator{first, second}; }
   iterator end() const
-  {
-
-    iterator it{first, second};
-    for (size_t i = 0; i < (first.length()); i++)
-    {
-      ++it;
-    }
-
-    return it;
-  }
+  { return iterator{first, second};}
 };
 }; // namespace itertools

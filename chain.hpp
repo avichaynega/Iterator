@@ -28,23 +28,40 @@ public:
     typename T1::iterator first_data;
     T2 second_begin;
     typename T2::iterator second_data;
-
+  
+  int counter=0;
     bool is_sec = false;
 
   public:
+  int size = 0;
     iterator(T1 first_be, T2 second_be) : first_begin(first_be), second_begin(second_be),
                                           first_data(first_begin.begin()), second_data(second_begin.begin())
     {
+      length();
     }
 
+    void length(){
+      for (;first_data != first_begin.end();++first_data){
+        size++;
+      }
+      for (;second_data != second_begin.end();++second_data){
+        size++;
+      }
+      first_data = first_begin.begin();
+      second_data = second_begin.begin();
+
+    }
     decltype(auto) operator*()
     {
-      V1 type;
+      if(counter == 0){
+        counter++;
+      }
+      auto type =*first_data;
       if (!is_sec)
       {
         type = *first_data;
         return type;
-        ;
+        
       }
       type = *second_data;
       return type;
@@ -53,6 +70,7 @@ public:
     //++i;
     iterator operator++()
     {
+       counter++;
       if (*first_data == (*first_begin.end() - 1) && !is_sec)
       {
         is_sec = true;
@@ -67,7 +85,6 @@ public:
       {
         ++first_data;
       }
-
       return *this;
     }
 
@@ -75,6 +92,7 @@ public:
     // Usually iterators are passed by value and not by const& as they are small.
     const iterator operator++(int)
     {
+      
       if (*first_data == (*first_begin.end() - 1) && !is_sec)
       {
         is_sec = true;
@@ -102,25 +120,14 @@ public:
 
     bool operator!=(const iterator other) const
     {
-      V1 type;
-      V1 type2;
-
-      type = *second_data;
-      type2 = *other.second_data;
-      return type != type2;
+      
+      return counter<=size;
     }
   };
   iterator begin() const { return iterator{first, second}; }
   iterator end() const
   {
-
-    iterator it{first, second};
-    for (size_t i = 0; i < (first.length() + second.length() + 1); i++)
-    {
-      ++it;
-    }
-
-    return it;
+return iterator{first, second};
   }
 };
 }; // namespace itertools
