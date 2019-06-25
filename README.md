@@ -1,4 +1,4 @@
-### authors: Avichay (Avtai) Nega, [Omer Hadida](https://github.com/2MarShmello2), [Oren Zauda](https://github.com/OrenZauda)
+### Authors: Avichay (Avtai) Nega, [Omer Hadida](https://github.com/2MarShmello2), [Oren Zauda](https://github.com/OrenZauda)
 # Iterator
 this repository contain data structors with comlexity of o(1).
 
